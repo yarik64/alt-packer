@@ -1,15 +1,15 @@
 PACKER_CACHE_DIR := ./packer_cache
 arch = x86_64
-BASE_VERSION = 8.2
+BASE_VERSION = 10.2
 headless = true
-TARGET_VERSION := 8.2
+TARGET_VERSION := 10.2
 target = alt-server
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 # VM_TYPE may be
 # - qemu
 # - vbox
 # - onebula
-VM_TYPE := qemu
+VM_TYPE := vbox
 # on-error may be:
 # - abort - stop and leave everything "as is"
 # - cleanup - is the default behavior

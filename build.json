@@ -101,7 +101,7 @@
             "headless": "{{user `headless`}}",
             "keep_registered": false,
             "guest_additions_mode": "disable",
-            "cpus": 1,
+            "cpus": 2,
             "memory": "{{ user `vm_mem` }}",
 
             "iso_url": "{{user `iso_url`}}",
@@ -121,10 +121,10 @@
 
             "boot_wait": "5s",
             "boot_command": [
-                "<esc><wait><enter><wait>",
+                "<esc><wait>e<wait><down><down><down><down><left>",
                   "{{ user `boot_cmd` }} ",
                   "ai curl=http://{{.HTTPIP}}:{{.HTTPPort}}/metadata/{{ user `metadata` }}/ ",
-                "<wait><enter>"
+                "<wait><enter><f10>"
             ],
 
             "shutdown_command": "sudo shutdown -P now",
