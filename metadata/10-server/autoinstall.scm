@@ -8,9 +8,8 @@
 ("/evms/profiles/workstation" action apply commit #f clearall #t exclude ())
 ("/evms/control" action "write" control commit)
 ("/evms/control" action "write" control close)
-("/remount-destination" action "write")
 
-("pkg-install-init" action "write")
+("pkg-init" action "write")
 ; Package lists for installation are taken from 'pkg-groups.tar' file
 ; which originally resides in 'Metadata' directory inside installation
 ; image/ISO. You may get the idea about necessary packages by
@@ -39,7 +38,7 @@
 ; QEMU which makes devices to look like classic '/dev/sda'. It allows
 ; to have one 'autoinstall.scm' file for both QEMU and VirtualBox
 ; reducing duplication, errors and differences.
-("/grub" action "write" device "efi" passwd #f passwd_1 "*" passwd_2 "*")
+("/grub" action "write" device "/dev/sda" passwd #f passwd_1 "*" passwd_2 "*")
 
 ("/net-eth" action "write" reset #t)
 ; There is a problem with 8SP networking - "persistent" interface names
