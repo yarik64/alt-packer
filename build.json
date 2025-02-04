@@ -43,10 +43,10 @@
 
             "boot_wait": "2s",
             "boot_command": [
-		"<esc><wait><enter><wait>",
+                "<esc><wait>e<wait><down><down><down><end>",
                   "{{ user `boot_cmd` }} ",
                   "ai curl=http://{{.HTTPIP}}:{{.HTTPPort}}/metadata/{{ user `metadata` }}/ ",
-		"<wait><enter>"
+                "<wait><enter><f10>"
             ],
 
             "shutdown_command": "sudo shutdown -P now"
@@ -121,10 +121,13 @@
 
             "boot_wait": "5s",
             "boot_command": [
-                "<esc><wait>e<wait><down><down><down><down><left>",
+                "<esc><wait>e<wait><down><down><down><end>",
                   "{{ user `boot_cmd` }} ",
                   "ai curl=http://{{.HTTPIP}}:{{.HTTPPort}}/metadata/{{ user `metadata` }}/ ",
-                "<wait><enter><f10>"
+                "<wait><enter><f10>",
+                "<wait><wait><wait><wait><wait><wait><wait><wait><wait><wait>",
+                "<wait><wait><wait><wait><wait><wait><wait><wait><wait><wait>",
+                "<wait><wait><wait><wait><wait><wait><wait><wait><wait><wait>"
             ],
 
             "shutdown_command": "sudo shutdown -P now",
