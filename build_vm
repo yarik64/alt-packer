@@ -13,7 +13,8 @@ VM_TYPE=${VM_TYPE:-vbox}
 # - cleanup - is the default behavior
 # - ask - ask what to do
 onerror=${onerror:-cleanup}
-build_command="packer build -var-file=config/common.json -on-error=${onerror}"
+debug=${DEBUG:+-debug}
+build_command="packer build -var-file=config/common.json -on-error=${onerror} ${debug}"
 
 # Check that the variable is set to correct value
 # $1 - variable name

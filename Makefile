@@ -27,6 +27,7 @@ image:
 	PACKER_LOG=1 \
 	PACKER_TARGET_VERSION="$(TARGET_VERSION)" \
 	PACKER_VM_TYPE="$(VM_TYPE)" \
+	DEBUG=$(DEBUG) \
 	./build_vm
 
 # Publish previously built VM box using Vagrant. Please note that you'll
