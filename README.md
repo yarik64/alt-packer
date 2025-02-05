@@ -36,6 +36,7 @@ Install the following dependencies:
 * **wget**
 * **qemu-kvm**
 * **qemu-ui-sdl**
+* **qemu-ui-gtk**
 * **virtualbox**
 * **packer**
 * **vagrant** (only if you plan to distribute boxes via Vagrant Cloud)
@@ -82,13 +83,25 @@ necessary ISOs into it.
 You may start building image for **QEMU** like:
 
 ```sh
-make image target=alt-workstation headless=false BASE_VERSION=9 TARGET_VERSION=9 VM_TYPE=qemu
+make image target=alt-workstation headless=false BASE_VERSION=10.2 TARGET_VERSION=10.2 VM_TYPE=qemu
 ```
 
 or if you want to build image for **VirtualBox**:
 
 ```sh
-make image target=alt-server headless=false BASE_VERSION=9 TARGET_VERSION=9 VM_TYPE=vbox
+make image target=alt-server headless=false BASE_VERSION=10.2 TARGET_VERSION=10.2 VM_TYPE=vbox
+```
+
+if you want to run packer in debug mode, add option DEBUG=1 (or DEBUG=anything_else_string), for example like this:
+
+```sh
+make image target=alt-workstation headless=false BASE_VERSION=10.2 TARGET_VERSION=10.2 VM_TYPE=qemu DEBUG=1
+```
+
+or
+
+```sh
+make image target=alt-server headless=false BASE_VERSION=10.2 TARGET_VERSION=10.2 VM_TYPE=vbox DEBUG=1
 ```
 
 
@@ -98,8 +111,8 @@ You may publish previously built boxes using **Vagrant** software like:
 
 ```sh
 export VAGRANTCLOUD_TOKEN="my_cloud_auth_token"
-make publish orgname=myorg target=alt-server VM_TYPE=vbox BASE_VERSION=9 TARGET_VERSION=9
-make publish orgname=myorg target=alt-workstation VM_TYPE=qemu BASE_VERSION=9 TARGET_VERSION=9
+make publish orgname=myorg target=alt-server VM_TYPE=vbox BASE_VERSION=10.2 TARGET_VERSION=10.2
+make publish orgname=myorg target=alt-workstation VM_TYPE=qemu BASE_VERSION=10.2 TARGET_VERSION=10.2
 ```
 
 
@@ -128,7 +141,7 @@ vagrant up
 First export QCOW2 image from build machine using NBD (on port 12345):
 
 ```sh
-nbd-server 12345 /mnt/disk/alt-packer/qemu-alt-server-9-amd64/qemu-alt-server-9-amd64
+nbd-server 12345 /mnt/disk/alt-packer/qemu-alt-server-10-amd64/qemu-alt-server-10-amd64
 ```
 
 On the client you need to issue command to connect to NBD server
