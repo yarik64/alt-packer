@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+BRANCH_NAME=p10
+DIST_NAME=kworkstation
+
+MD5_REPO=http://ftp.altlinux.org/pub/distributions/ALTLinux/${BRANCH_NAME}/images/${DIST_NAME}/MD5SUM
+
+packer_conf_write(){
+cat <<EOF >> alt-${DIST_NAME}-${DIST_VER}-x86_64.json
+{
+    "iso_url": "http://ftp.altlinux.org/pub/distributions/ALTLinux/${BRANCH_NAME}/images/${DIST_NAME}/alt-${DIST_NAME}-${DIST_VER}-install-x86_64.iso",
+    "iso_target_path": "alt-${DIST_NAME}-${DIST_VER}-x86_64.iso",
+    "iso_checksum": "${MD5_HASH}",
+    "iso_checksum_type": "md5",
+    "boot_cmd": " quiet=1 showopts net.ifnames=0 automatic=method:cdrom,network:dhcp",
+    "metadata": "${DIST_VER#.*}-${DIST_NAME}",
+    "descr": "ALT Linux ${DIST_NAME} ${DIST_VER} x86_64",
+    "image_version": "1.0.0",
+    "with_cloudinit": "0",
+    "with_sisyphus": "0"
+}
+EOF
+
+}
+
+md5sum_parse(){
+	while [[ $* ]]; do
+		MD5_HASH=$1
+		DIST_NAME=`echo $2 | grep -Po '(?<=alt-).*(?=-\d)'`
+		DIST_VER=`echo $2 | grep -Po '\d+(\.\d+)*(\.\d+)*(?=-install)'`
+		shift 2
+		packer_conf_write
+	done
+}
+
+main(){
+	md5sum_parse `GET $MD5_REPO 2>/dev/null | grep install`
+	# echo `GET $MD5_REPO 2>/dev/null`
+}
+
+main
+
