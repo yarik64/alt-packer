@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh -efu
+
 
 BRANCH_NAME=p10
 DIST_NAME=kworkstation
