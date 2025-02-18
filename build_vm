@@ -8,6 +8,7 @@ BASE_VERSION=${BASE_VERSION:-10}
 TARGET_VERSION=${TARGET_VERSION:-10}
 headless=${headless:-false}
 VM_TYPE=${VM_TYPE:-vbox}
+CLOUD_INIT=${CLOUD_INIT:-0}
 # on-error may be:
 # - abort - stop and leave everything "as is"
 # - cleanup - is the default behavior
@@ -53,6 +54,7 @@ main() {
 	assert_value TARGET_VERSION ${TARGET_VERSION} '8.2' '8.3' '8sp' '8.1sp' '9' '9.1' '10.2' '10.4' 'sisyphus'
 	assert_value VM_TYPE ${VM_TYPE} qemu onebula vbox
 	assert_value onerror ${onerror} ask cleanup abort
+	assert_value CLOUD_INIT ${CLOUD_INIT} 0 1
 
 	if test "${BASE_VERSION}" == "sisyphus"; then
 		TARGET_VERSION="sisyphus"
@@ -67,6 +69,7 @@ main() {
 		PACKER_LOG=1 \
 		PACKER_TARGET_VERSION="${TARGET_VERSION}" \
 		PACKER_VM_TYPE="${VM_TYPE}" \
+		PACKER_CLOUD_INIT="${CLOUD_INIT}" \
 		${build_command} -force -var-file=config/${target}-${BASE_VERSION}-${arch}.json -only=${VM_TYPE}-vm build.json
 }
 
