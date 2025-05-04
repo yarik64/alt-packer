@@ -23,7 +23,7 @@
             "disk_interface": "virtio-scsi",
             "output_directory": "{{ user `vm_type` }}-{{ user `target` }}-{{ user `target_version` }}-{{ user `arch` }}",
             "headless": "{{user `headless`}}",
-            "cpus": 1,
+            "cpus": 2,
             "memory": "{{ user `vm_mem` }}",
 
             "iso_url": "{{user `iso_url`}}",
@@ -148,6 +148,21 @@
             "type": "file",
             "source": "scripts/",
             "destination": "/tmp/"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/vm_setup",
+            "environment_vars": [
+                "ROOT_PASS={{ user `root_password` }}",
+                "PASS='{{ user `ssh_pass` }}'",
+                "SSH_USER='{{ user `ssh_user` }}'",
+                "VM_TYPE={{ user `vm_type` }}",
+                "TARGET={{ user `target` }}",
+                "TARGET_REPOS={{ user `target_version` }}",
+                "ARCH={{ user `arch` }}",
+                "CLOUDINIT={{ user `with_cloudinit` }}",
+                "SISYPHUS={{ user `with_sisyphus` }}"
+            ]
         },
         {
             "type": "shell",

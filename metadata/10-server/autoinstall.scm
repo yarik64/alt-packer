@@ -9,7 +9,7 @@
 ("/evms/control" action "write" control commit)
 ("/evms/control" action "write" control close)
 
-("pkg-init" action "write")
+("pkg-install-init" action "write")
 ; Package lists for installation are taken from 'pkg-groups.tar' file
 ; which originally resides in 'Metadata' directory inside installation
 ; image/ISO. You may get the idea about necessary packages by
